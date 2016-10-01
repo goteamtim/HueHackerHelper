@@ -14,19 +14,11 @@ var userObject = {
 
 function init() {
     //check for cookie
-    chrome.storage.local.get(function (storedUserObject) {
-        if ($.isEmptyObject(storedUserObject)) {
             $.get(userObject.getInfoUrl, function (result) {
                 //Check for not being able to connect here
                 userObject.localIpAddress = result[0].internalipaddress;
                 setupNewUser(userObject.localIpAddress);
             })
-        }else{
-            //Use the userobject to update the UI
-            document.getElementById('hardwareStatus').innerHTML = "Your API Key: " + storedUserObject.hueUsername;
-            getLights(storedUserObject);
-        }
-    })
 
 }
 
