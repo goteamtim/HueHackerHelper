@@ -22,10 +22,7 @@ function init() {
                 }else{
                     userObject.localIpAddress = result[0].internalipaddress;
                 document.getElementById('bridgeIP').innerHTML = userObject.localIpAddress;
-                
-                  
                 }
-                
             })
         }else{
             //Use the userobject to update the UI
@@ -91,9 +88,6 @@ function clearStorage(){
 }
 
 function setupButtonPressed(){
-    //Show the spinning wheel
-    //Try for 15 seconds at 2 second intervals
-    //check if auto configured
     if(document.getElementById('ipInput').value != null){
         //I cant find their IP, use the one they input
         userObject.localIpAddress = document.getElementById('ipInput').value;
