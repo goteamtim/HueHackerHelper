@@ -1,0 +1,6 @@
+{
+  "name": "Hue Hacker Helper",
+  "tagline": "Chrome extension to quickly get your phillips hue API key for your bridge.",
+  "body": "### Hue Hacker Helper.\r\nThis extension will help you quickly get an API key from your Phillips Hue Bridge.  You can [Download Now](https://chrome.google.com/webstore/detail/hue-hacker/pkkpnjaldaemalgekcdjimfaembcnlhe) and add to chrome to quickly get started.\r\n\r\n### Authors and Contributors\r\nI am currently the sole developer of Hue Hacker but if you would like to contribute or have a suggestion let me know!\r\n\r\n### Support or Contact\r\nHaving trouble with Hue Hacker? [Contact support](mailto://huehacker@gmail.com) and we’ll help you sort it out.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
