@@ -2,7 +2,7 @@
 	padding: 10px;
 	height: 200px;
 	width: 400px;
-	font-family: Helvetica, Ubuntu, Arial, sans-serif;
+	font-family: 'Roboto', Helvetica, Ubuntu, Arial, sans-serif;
 }
 h1 {
     font-size: 2em;
@@ -11,4 +11,13 @@ h1 {
 
 #mainPopup{
     padding-top: 70px;
+}
+.demo-card-square.mdl-card {
+  width: 320px;
+  height: 320px;
+}
+.demo-card-square > .mdl-card__title {
+  color: #fff;
+  background:
+    url('/icons/Push-link/SVG/pushlink_bridgev2.svg') bottom right no-repeat #46B6AC;
 }
