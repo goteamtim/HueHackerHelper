@@ -43,7 +43,7 @@ function setupNewUser(ipAddress) {
             //They pressed the button
             userObject.hueUsername = response[0].success.username;
             userObject.baseApiUrl = 'http://' + userObject.localIpAddress + '/api/' + userObject.hueUsername;
-            hardwareStatus.innerHTML = "Your API Key: ";
+            hardwareStatus.innerHTML = "Your API Key: " + response[0].success.username;
             document.getElementById('statusFromBase').text = userObject.hueUsername;
             document.getElementById('statusFromBase').id = 'successfulKey';
             chrome.storage.local.set(userObject);
