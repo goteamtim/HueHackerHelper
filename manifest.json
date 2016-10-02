@@ -1,9 +1,9 @@
 {
-  "name": "Hue Hacker Helper",
+  "name": "Hue Hacker",
   "version": "0.0.1",
   "manifest_version": 2,
   "description": "This extension was created to help home automation hackers and hackathon attendees get their keys faster and easier",
-  "homepage_url": "http://extensionizr.com",
+  "homepage_url": "http://timharshman.com/huehacker",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

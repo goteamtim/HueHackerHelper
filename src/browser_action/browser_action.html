@@ -1,24 +1,46 @@
 <!doctype html>
+
 <head>
-<style type="text/css">
-	#mainPopup {
-		padding: 10px;
-		height: 200px;
-		width: 400px;
-		font-family: Helvetica, Ubuntu, Arial, sans-serif;
-	}
-	h1 {
-		font-size: 2em;
-	}
-</style>
-<script src="/js/jquery/jquery.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/material.min.css">
+	<script src="/js/material.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<script src="/js/jquery/jquery.min.js"></script>
 </head>
+
 <body>
-<div id="mainPopup">
-<h1>Hello Hacker!</h1>
-<p>I'll take care of this part while you do the hacking.</p>
-<p id="hardwareStatus"></p>
-<span id="statusFromBase"></span>
-</div>
-<script src="/js/popup.js"></script>
+	<!-- Always shows a header, even in smaller screens. -->
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-drawer-button">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row">
+				<!-- Title -->
+				<span class="mdl-layout-title">Hue Hacker</span>
+				<!-- Add spacer, to align navigation to the right -->
+				<div class="mdl-layout-spacer"></div>
+				<!--DropDown Menu-->
+				<button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">more_vert</i>
+</button>
+
+				<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right">
+					<li class="mdl-menu__item" id="clearInfo">Clear Info</li>
+					<li class="mdl-menu__item">Another Action</li>
+					<li disabled class="mdl-menu__item">Disabled Action</li>
+				</ul>
+				<!-- Dropdown end -->
+
+			</div>
+		</header>
+
+		
+	</div>
+
+	<div id="mainPopup">
+		<p>I'll take care of this part while you do the hacking.</p>
+		<p id="hardwareStatus"></p>
+		<span id="statusFromBase"></span>
+		<span for="statusFromBase" class="mdl-tooltip">Click to copy</span>
+	</div>
+	<script src="/js/popup.js"></script>
 </body>
