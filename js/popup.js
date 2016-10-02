@@ -6,7 +6,8 @@ var userObject = {
     lightingInfo: {}
 },
 hardwareStatus = document.getElementById('hardwareStatus'),
-spinner = document.getElementsByClassName('mdl-spinner mdl-js-spinner is-active')[0];
+spinner = document.getElementsByClassName('mdl-spinner mdl-js-spinner is-active')[0],
+counter = 0;;
 
 function init() {
     //check for cookie
@@ -34,10 +35,10 @@ function init() {
 }
 
 function setupNewUser(ipAddress) {
-    var couner = 0;
     spinner.hidden = false;
     var localUrl = 'http://' + userObject.localIpAddress + '/api';
     $.post(localUrl, '{"devicetype":"chrome_extension#HueHackerHelper"}', function (response,status) {
+        console.log("Begin counter: " + counter)
         if (response[0].hasOwnProperty("success")) {
             //They pressed the button
             userObject.hueUsername = response[0].success.username;
@@ -48,9 +49,11 @@ function setupNewUser(ipAddress) {
             chrome.storage.local.set(userObject);
         } else if (response[0].hasOwnProperty("error")) {
             if(counter <=8){
-                setTimeout(setupNewUser(userObject.localIpAddress),2000);
+                setTimeout(function(){setupNewUser(userObject.localIpAddress)},2000);
                 counter++;
+                console.log(counter)
             }else{
+                counter = 0;
                 spinner.hidden = true;
             //Add button to popup that offers to run it again
             hardwareStatus.innerHTML = "Hmm, something isn't right, here is the response from" + 
@@ -67,6 +70,7 @@ function setupNewUser(ipAddress) {
         //status.statusText = reason
         hardwareStatus.innerHTML = "I can't seem to connect to your hue.  Please check the connection and make sure you"+
         " are on the same network then try again.";
+        console.log("Status: " + status.status)
     });
     
 }
@@ -88,7 +92,8 @@ function clearStorage(){
 }
 
 function setupButtonPressed(){
-    if(document.getElementById('ipInput').value != null){
+    if(document.getElementById('ipInput').value != ""){
+        console.log("form input: " + document.getElementById('ipInput').value);
         //I cant find their IP, use the one they input
         userObject.localIpAddress = document.getElementById('ipInput').value;
         setupNewUser(userObject.localIpAddress);

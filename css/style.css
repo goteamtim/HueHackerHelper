@@ -8,7 +8,9 @@ h1 {
     font-size: 2em;
     font-family: 'Roboto', sans-serif;
 }
-
+#mdl-grid\20 mainPopup{
+    padding-top: 70px;
+}
 #mainPopup{
     padding-top: 70px;
 }
