@@ -7,12 +7,14 @@ var userObject = {
 },
 hardwareStatus = document.getElementById('hardwareStatus'),
 spinner = document.getElementsByClassName('mdl-spinner mdl-js-spinner is-active')[0],
-counter = 0;;
+counter = 0,
+setupButton = document.getElementById('setupButton');
 
 function init() {
     //check for cookie
     chrome.storage.local.get(function (storedUserObject) {
         if ($.isEmptyObject(storedUserObject)) {
+            setupButton.disabled = false;
             $.get(userObject.getInfoUrl, function (result) {
                 //Check for empty array, if its empto then prompt the user for an ip address
                 //Check for not being able to connect here
@@ -27,8 +29,10 @@ function init() {
             })
         }else{
             //Use the userobject to update the UI
-            hardwareStatus.innerHTML = "Your API Key:\n" + storedUserObject.hueUsername;
-            getLights(storedUserObject);
+            document.getElementById('bridgeIP').innerHTML = storedUserObject.localIpAddress;
+            hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueKey\">" + storedUserObject.hueUsername + "</span>";
+            //setupButton.classList = "disabled";
+            //getLights(storedUserObject);
         }
     })
 
@@ -38,27 +42,23 @@ function setupNewUser(ipAddress) {
     spinner.hidden = false;
     var localUrl = 'http://' + userObject.localIpAddress + '/api';
     $.post(localUrl, '{"devicetype":"chrome_extension#HueHackerHelper"}', function (response,status) {
-        console.log("Begin counter: " + counter)
         if (response[0].hasOwnProperty("success")) {
             //They pressed the button
             userObject.hueUsername = response[0].success.username;
             userObject.baseApiUrl = 'http://' + userObject.localIpAddress + '/api/' + userObject.hueUsername;
             hardwareStatus.innerHTML = "Your API Key: " + response[0].success.username;
-            document.getElementById('statusFromBase').text = userObject.hueUsername;
-            document.getElementById('statusFromBase').id = 'successfulKey';
+            spinner.hidden = true;
             chrome.storage.local.set(userObject);
         } else if (response[0].hasOwnProperty("error")) {
             if(counter <=8){
                 setTimeout(function(){setupNewUser(userObject.localIpAddress)},2000);
                 counter++;
-                console.log(counter)
             }else{
                 counter = 0;
                 spinner.hidden = true;
             //Add button to popup that offers to run it again
             hardwareStatus.innerHTML = "Hmm, something isn't right, here is the response from" + 
-            "your Hue base: " + response[0].error.description;
-            //document.getElementById('statusFromBase').innerHTML = response[0].error.description;
+            "your Hue base:\n" + response[0].error.description;
             }
         }
     })
@@ -87,10 +87,6 @@ function getLights(userInfo) {
     })
 }
 
-function clearStorage(){
-    chrome.storage.local.clear();
-}
-
 function setupButtonPressed(){
     if(document.getElementById('ipInput').value != ""){
         console.log("form input: " + document.getElementById('ipInput').value);
@@ -101,5 +97,19 @@ function setupButtonPressed(){
         setupNewUser(userObject.localIpAddress);
     }
 }
+
+document.getElementById('clearInfo').addEventListener('click',function(e){
+    chrome.storage.local.clear();
+});
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-85118519-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = 'https://ssl.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
 
 init();
