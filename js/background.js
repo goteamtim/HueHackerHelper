@@ -69,4 +69,31 @@ var XORCipher = {
     }).join("");
   }
 
-  
+  function copyKey(value){
+    
+  var input = document.createElement('input');
+    input.value = value;
+    //input.insertAfter(cutTextarea);
+    input.focus();
+    input.select();
+    //$(this).hide();
+    alert("inputVal: " + input.value)
+  try {  
+    var successful = document.execCommand('Copy');  
+    var msg = successful ? 'successful' : 'unsuccessful';  
+    // alert user with msg  successful
+    alert(msg)
+  } catch(err) {  
+    //Let them know something went wrong 
+    alert(err)
+  }
+
+
+}
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if (request.action == "copy")
+    copyKey(request.value)
+      sendResponse({farewell: "goodbye"});
+  });
