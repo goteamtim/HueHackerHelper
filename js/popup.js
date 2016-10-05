@@ -30,7 +30,7 @@ function init() {
         }else{
             //Use the userobject to update the UI
             document.getElementById('bridgeIP').innerHTML = storedUserObject.localIpAddress;
-            hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueKey\">" + storedUserObject.hueUsername + "</span>";
+            hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueUsername\" onClick=\"copyKey\">" + storedUserObject.hueUsername + "</span>";
             //setupButton.classList = "disabled";
             //getLights(storedUserObject);
         }
@@ -46,7 +46,7 @@ function setupNewUser(ipAddress) {
             //They pressed the button
             userObject.hueUsername = response[0].success.username;
             userObject.baseApiUrl = 'http://' + userObject.localIpAddress + '/api/' + userObject.hueUsername;
-            hardwareStatus.innerHTML = "Your API Key: " + response[0].success.username;
+            hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueUsername\" onClick=\"copyKey\">" + response[0].success.username + "</span>";
             spinner.hidden = true;
             chrome.storage.local.set(userObject);
         } else if (response[0].hasOwnProperty("error")) {
@@ -96,6 +96,10 @@ function setupButtonPressed(){
     }else{
         setupNewUser(userObject.localIpAddress);
     }
+}
+
+function copyKey(){
+    document.execCommand('copy')
 }
 
 document.getElementById('clearInfo').addEventListener('click',function(e){
