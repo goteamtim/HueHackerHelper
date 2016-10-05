@@ -30,7 +30,8 @@ function init() {
         }else{
             //Use the userobject to update the UI
             document.getElementById('bridgeIP').innerHTML = storedUserObject.localIpAddress;
-            hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueUsername\" onClick=\"copyKey\">" + storedUserObject.hueUsername + "</span>";
+            hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueUsername\">" + storedUserObject.hueUsername + "</span>";
+            document.getElementById('hueUsername').addEventListener('click',copyKey,false);
             //setupButton.classList = "disabled";
             //getLights(storedUserObject);
         }
@@ -46,9 +47,11 @@ function setupNewUser(ipAddress) {
             //They pressed the button
             userObject.hueUsername = response[0].success.username;
             userObject.baseApiUrl = 'http://' + userObject.localIpAddress + '/api/' + userObject.hueUsername;
-            hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueUsername\" onClick=\"copyKey\">" + response[0].success.username + "</span>";
+            hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueUsername\" >" + response[0].success.username + "</span>";
             spinner.hidden = true;
             chrome.storage.local.set(userObject);
+            console.log(document.getElementById('hueUsername').text);
+            document.getElementById('hueUsername').addEventListener('click',copyKey,false);
         } else if (response[0].hasOwnProperty("error")) {
             if(counter <=8){
                 setTimeout(function(){setupNewUser(userObject.localIpAddress)},2000);
@@ -99,7 +102,26 @@ function setupButtonPressed(){
 }
 
 function copyKey(){
-    document.execCommand('copy')
+    console.log("copyKey Entered")
+  var cutTextarea = document.querySelector('hueUsername');  
+  //cutTextarea.select();
+
+  var input = $('<input type=text>');
+    input.prop('value', text);
+    input.insertAfter(cutTextarea.innerHTML);
+    input.focus();
+    input.select();
+    $(this).hide();
+
+  try {  
+    var successful = document.execCommand('copy');  
+    var msg = successful ? 'successful' : 'unsuccessful';  
+    // alert user with msg  successful
+  } catch(err) {  
+    //Let them know something went wrong 
+  }
+
+
 }
 
 document.getElementById('clearInfo').addEventListener('click',function(e){
