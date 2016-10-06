@@ -23,3 +23,17 @@ h1 {
   background:
     url('/icons/Push-link/SVG/pushlink_bridgev2.svg') bottom right no-repeat #46B6AC;
 }
+
+#hueUsername {
+    border: none;
+    width: 100%;
+    -webkit-appearance: none;
+    outline:none;
+    background:white;
+    -webkit-appearance: none; box-shadow: none !important;
+}
+
+hueUsername::select {
+    background: #b3d4fc;
+    text-shadow: none;
+}

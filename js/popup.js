@@ -30,7 +30,7 @@ function init() {
         }else{
             //Use the userobject to update the UI
             document.getElementById('bridgeIP').innerHTML = storedUserObject.localIpAddress;
-            hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueUsername\">" + storedUserObject.hueUsername + "</span>";
+            hardwareStatus.innerHTML = "Your API Key:<br><input id=\"hueUsername\"value=\"" + storedUserObject.hueUsername + "\"></input>";
             document.getElementById('hueUsername').addEventListener('click',copy);
             //setupButton.classList = "disabled";
             //getLights(storedUserObject);
@@ -47,7 +47,7 @@ function setupNewUser(ipAddress) {
             //They pressed the button
             userObject.hueUsername = response[0].success.username;
             userObject.baseApiUrl = 'http://' + userObject.localIpAddress + '/api/' + userObject.hueUsername;
-            hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueUsername\" >" + response[0].success.username + "</span>";
+            hardwareStatus.innerHTML = "Your API Key:<br><input id=\"hueUsername\" >" + response[0].success.username + "</input>";
             spinner.hidden = true;
             chrome.storage.local.set(userObject);
             console.log(document.getElementById('hueUsername').text);
@@ -106,24 +106,19 @@ function copy(){
         var hueUser = document.getElementById("hueUsername");
          var input = document.createElement('input');
     input.value = hueUser.text;
-    input.focus();
-    //input.select();
-    document.execCommand('Select');
-        //Copy Content
+    hueUser.select();
+    hueUser.focus();
         document.execCommand("Copy", false, null);
-		alert('copied');
-    }
-
-function sendToBackground(msgName,value){
-    chrome.runtime.sendMessage({action:msgName,
-                                value: value}, function(response) {
-  alert(response);
-});
+        clearSelection();
 }
 
-document.getElementById('clearInfo').addEventListener('click',function(e){
-    chrome.storage.local.clear();
-});
+function clearSelection() {
+    if ( document.selection ) {
+        document.selection.empty();
+    } else if ( window.getSelection ) {
+        window.getSelection().removeAllRanges();
+    }
+}
 
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-85118519-1']);
