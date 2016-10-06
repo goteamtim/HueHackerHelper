@@ -70,7 +70,7 @@ var XORCipher = {
   }
 
   function copyKey(value){
-    
+
   var input = document.createElement('input');
     input.value = value;
     //input.insertAfter(cutTextarea);
