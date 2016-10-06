@@ -31,9 +31,7 @@ function init() {
             //Use the userobject to update the UI
             document.getElementById('bridgeIP').innerHTML = storedUserObject.localIpAddress;
             hardwareStatus.innerHTML = "Your API Key:\n<span id=\"hueUsername\">" + storedUserObject.hueUsername + "</span>";
-            document.getElementById('hueUsername').addEventListener('click',function(){
-                sendToBackground("copy",this.innerHTML);
-            });
+            document.getElementById('hueUsername').addEventListener('click',copy);
             //setupButton.classList = "disabled";
             //getLights(storedUserObject);
         }
@@ -53,9 +51,7 @@ function setupNewUser(ipAddress) {
             spinner.hidden = true;
             chrome.storage.local.set(userObject);
             console.log(document.getElementById('hueUsername').text);
-            document.getElementById('hueUsername').addEventListener('click',function(){
-                sendToBackground("copy",this.innerHTML);
-            });
+            document.getElementById('hueUsername').addEventListener('click',copy);
         } else if (response[0].hasOwnProperty("error")) {
             if(counter <=8){
                 setTimeout(function(){setupNewUser(userObject.localIpAddress)},2000);
@@ -104,6 +100,19 @@ function setupButtonPressed(){
         setupNewUser(userObject.localIpAddress);
     }
 }
+
+function copy(){
+
+        var hueUser = document.getElementById("hueUsername");
+         var input = document.createElement('input');
+    input.value = hueUser.text;
+    input.focus();
+    //input.select();
+    document.execCommand('Select');
+        //Copy Content
+        document.execCommand("Copy", false, null);
+		alert('copied');
+    }
 
 function sendToBackground(msgName,value){
     chrome.runtime.sendMessage({action:msgName,
