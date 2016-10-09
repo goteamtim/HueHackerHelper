@@ -110,6 +110,7 @@ function copy(){
     hueUser.focus();
         document.execCommand("Copy", false, null);
         clearSelection();
+        
 }
 
 function clearSelection() {
