@@ -1,7 +1,7 @@
 #mainPopup {
 	padding: 10px;
 	height: 200px;
-	width: 400px;
+	width: 500px;
 	font-family: 'Roboto', Helvetica, Ubuntu, Arial, sans-serif;
 }
 h1 {
@@ -36,4 +36,8 @@ h1 {
 hueUsername::select {
     background: #b3d4fc;
     text-shadow: none;
+}
+
+body {
+    min-width: 500px;
 }

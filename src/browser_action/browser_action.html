@@ -10,7 +10,7 @@
 	<script src="/js/angular.min.js"></script>
 </head>
 
-<body>
+<body ng-app="hueHelper" ng-controller="mainController">
 	<!-- Always shows a header, even in smaller screens. -->
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-drawer-button">
 		<header class="mdl-layout__header">
@@ -69,5 +69,6 @@
 			Click to copy
 		</div>
 	</div>
+	<div ng-include="'lights.html'"></div>
 	<script src="/js/popup.js"></script>
 </body>
