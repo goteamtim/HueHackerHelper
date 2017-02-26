@@ -145,6 +145,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
 
 app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($scope, $http, hueGlobals) {
     $scope.lights;
+    $scope.lightsLoading = true;
 
     $scope.getLights = function () {
         console.log("Get Lights Started")
@@ -155,6 +156,7 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
             }, 5000);
         } else {
             $scope.lights = hueGlobals.getLights();
+            $scope.lightsLoading = false;
             $scope.$apply();
         }
     }
