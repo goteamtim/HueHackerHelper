@@ -1,5 +1,22 @@
 var app = angular.module('hueHelper', []);
-app.controller('mainController', function ($scope, $http) {
+
+app.service('hueGlobals', function () {
+    let lights,
+        lightsSet = false;
+
+    return {
+        getLights: function () {
+            return lights;
+        },
+        setLights: function (value) {
+            lights = value;
+            lightsSet = true;
+        }
+    };
+});
+
+
+app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($scope, $http, hueGlobals) {
     $scope.userObject = {
         localIpAddress: "",
         hueUsername: "",
@@ -31,9 +48,9 @@ app.controller('mainController', function ($scope, $http) {
                 //Use the userobject to update the UI
                 document.getElementById('bridgeIP').innerHTML = storedUserObject.localIpAddress;
                 hardwareStatus.innerHTML = "Your API Key:<br><input id=\"hueUsername\"value=\"" + storedUserObject.hueUsername + "\"></input>";
-                document.getElementById('hueUsername').addEventListener('click', copy);
+                document.getElementById('hueUsername').addEventListener('click', $scope.copy);
                 setupButton.classList = "disabled";
-                getLights(storedUserObject);
+                $scope.getLights(storedUserObject);
             }
         })
 
@@ -51,7 +68,7 @@ app.controller('mainController', function ($scope, $http) {
                 spinner.hidden = true;
                 chrome.storage.local.set(userObject);
                 console.log(document.getElementById('hueUsername').text);
-                document.getElementById('hueUsername').addEventListener('click', copy);
+                document.getElementById('hueUsername').addEventListener('click', $scope.copy);
             } else if (response[0].hasOwnProperty("error")) {
                 if (counter <= 8) {
                     setTimeout(function () { setupNewUser(userObject.localIpAddress) }, 2000);
@@ -87,7 +104,7 @@ app.controller('mainController', function ($scope, $http) {
     $scope.getLights = function (userInfo) {
         $.get(userInfo.baseApiUrl + "/lights", function (response) {
             console.log(response);
-
+            hueGlobals.setLights(response);
         })
     }
 
@@ -123,8 +140,28 @@ app.controller('mainController', function ($scope, $http) {
     }
 
     $scope.init();
-});
+}]);
 
+
+app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($scope, $http, hueGlobals) {
+    $scope.lights;
+
+    $scope.getLights = function () {
+        console.log("Get Lights Started")
+        console.log(hueGlobals.getLights())
+        if (hueGlobals.getLights() == undefined) {
+            setTimeout(function () {
+                $scope.getLights();
+            }, 5000);
+        } else {
+            $scope.lights = hueGlobals.getLights();
+            $scope.$apply();
+        }
+    }
+
+
+    $scope.getLights();
+}]);
 
 
 var _gaq = _gaq || [];
