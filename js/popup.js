@@ -87,6 +87,7 @@ function handleSetupResponse(response) {
 function getLights(userInfo) {
     $.get(userInfo.baseApiUrl + "/lights", function (response) {
         console.log(response);
+        
     })
 }
 
