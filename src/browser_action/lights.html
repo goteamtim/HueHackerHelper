@@ -1,4 +1,4 @@
 <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate" ng-show="lightsLoading"></div>
 <div ng-repeat="light in lights">
-    <div>{{light.name}}</div>
-</div>
+    <a href="http://{{}}/lights/{{username}}/device/{{deviceid}}"><div class="{{light.state.on}}">{{light.name}}</div></a>
+</div> 
