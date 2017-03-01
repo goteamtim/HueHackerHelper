@@ -2,7 +2,8 @@ var app = angular.module('hueHelper', []);
 
 app.service('hueGlobals', function () {
     let lights,
-        lightsSet = false;
+        lightsSet = false,
+        userObject = {};
 
     return {
         getLights: function () {
@@ -50,6 +51,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
                 hardwareStatus.innerHTML = "Your API Key:<br><input id=\"hueUsername\"value=\"" + storedUserObject.hueUsername + "\"></input>";
                 document.getElementById('hueUsername').addEventListener('click', $scope.copy);
                 setupButton.classList = "disabled";
+                hueGlobals.userObject = storedUserObject;
                 $scope.getLights(storedUserObject);
             }
         })
@@ -159,6 +161,17 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
             $scope.lightsLoading = false;
             $scope.$apply();
         }
+    }
+
+    $scope.setLightState = function(deviceId,currentState){
+        let apiCall = "http://" + hueGlobals.userObject.localIpAddress;
+        apiCall += "/api/" + hueGlobals.userObject.hueUsername + "/lights/"+ deviceId +"/state"; //Might need /api/ here, check the baseApiUrl
+        $http.put(apiCall,{"on":!currentState}).then(function(response){
+            //Let the user know the state change...or dont...
+            console.log(response)
+        });
+
+        
     }
 
 

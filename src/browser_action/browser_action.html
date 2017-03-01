@@ -31,11 +31,7 @@
 
 			</div>
 		</header>
-
-
-	</div>
-
-	<div id="mdl-grid mainPopup">
+		<div id="mdl-grid mainPopup">
 		<!--<p id="hardwareStatus"></p>
 		<span id="statusFromBase"></span>
 -->
@@ -69,8 +65,14 @@
 			Click to copy
 		</div>
 	</div>
-	<div  ng-controller="lightsController">
+	<div id="mdl-grid">
+	<div ng-controller="lightsController">
 		<div ng-include="'lights.html'"></div>
 	</div>
+	</div>
+
+	</div>
+
+	
 	<script src="/js/popup.js"></script>
 </body>

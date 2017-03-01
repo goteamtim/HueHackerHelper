@@ -1,7 +1,7 @@
 #mainPopup {
 	padding: 10px;
 	height: 200px;
-	width: 500px;
+	width: 450px;
 	font-family: 'Roboto', Helvetica, Ubuntu, Arial, sans-serif;
 }
 h1 {
@@ -46,6 +46,14 @@ body {
     color: green;
 }
 
+.true:hover {
+    cursor: pointer;
+}
+
 .false {
     color: red;
+}
+
+.false:hover {
+    cursor: crosshair;
 }
