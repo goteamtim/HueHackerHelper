@@ -1,4 +1,4 @@
 <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate" ng-show="lightsLoading"></div>
-<div ng-repeat="light in lights track by $index">
-    <div class="{{light.state.on}}" ng-click="setLightState($index,light.state.on)" width="100px" height="150px">{{light.name}}</div>
+<div ng-repeat="(lightId,light) in lights">
+    <div class="{{light.state.on}}" ng-click="setLightState(lightId,light.state.on)" width="100px" height="150px">{{light.name}}</div>
 </div>
