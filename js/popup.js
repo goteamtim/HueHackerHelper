@@ -174,7 +174,7 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
                 console.log("key")
                 console.log(response.data[0].success)
                 console.log(light.state.on)
-                $scope.$apply();
+                //$scope.$apply();
                 //Thing worked, swap teh class and change the function call to be opposite
             }else{
                 //Something went wrong, alert user with the status response?
