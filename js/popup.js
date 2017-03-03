@@ -170,6 +170,7 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
             //Let the user know the state change...or dont...
             console.log(response)
             if(response.data.success){
+                
                 //Thing worked, swap teh class and change the function call to be opposite
             }else{
                 //Something went wrong, alert user with the status response?
