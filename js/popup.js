@@ -163,10 +163,10 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
         }
     }
 
-    $scope.setLightState = function(deviceId,currentState){
+    $scope.setLightState = function(deviceId,light){
         let apiCall = "http://" + hueGlobals.userObject.localIpAddress;
         apiCall += "/api/" + hueGlobals.userObject.hueUsername + "/lights/"+ deviceId +"/state"; //Might need /api/ here, check the baseApiUrl
-        $http.put(apiCall,{"on":!currentState}).then(function(response){
+        $http.put(apiCall,{"on":!light.state.on}).then(function(response){
             //Let the user know the state change...or dont...
             console.log(response)
             if(response.data.success){
