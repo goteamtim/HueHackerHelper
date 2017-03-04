@@ -54,5 +54,5 @@ body {
 }
 
 .false:hover {
-    cursor: crosshair;
+    cursor: pointer;
 }
