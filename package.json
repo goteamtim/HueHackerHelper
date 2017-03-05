@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/goteamtim/HueHackerHelper#readme",
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-jsmin": "^0.1.5",
+    "gulp-rename": "^1.2.2"
   }
 }
