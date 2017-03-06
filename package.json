@@ -1,0 +1,30 @@
+{
+  "name": "huehackerhelper",
+  "version": "1.0.0",
+  "description": "Chrome extension for Phillips hue hacking and controlling.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goteamtim/HueHackerHelper.git"
+  },
+  "keywords": [
+    "hue",
+    "phillips",
+    "chrome",
+    "extension"
+  ],
+  "author": "Tim Harshman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/goteamtim/HueHackerHelper/issues"
+  },
+  "homepage": "https://github.com/goteamtim/HueHackerHelper#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jsmin": "^0.1.5",
+    "gulp-rename": "^1.2.2"
+  }
+}
