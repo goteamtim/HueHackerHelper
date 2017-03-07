@@ -7,6 +7,17 @@ h1 {
     font-size: 2em;
     font-family: 'Roboto', sans-serif;
 }
+
+.demo-card-square-light.mdl-card-light {
+    width: 320px;
+    height: 320px;
+}
+
+.demo-card-square-light > .mdl-card__title-light {
+    color: #fff;
+    background: url('https://getmdl.io/assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
+}
+
 #mdl-grid\20 mainPopup{
     
 }

@@ -7,10 +7,11 @@ app.service('hueGlobals', function () {
 
     return {
         getLights: function () {
-            return lights;
+            return userObject.lightingInfo || lights;
         },
         setLights: function (value) {
             lights = value;
+            chrome.storage.local.set({ 'lightingInfo': value }, function () {/*Might need to get user lights here.*/ });
             lightsSet = true;
         }
     };
@@ -150,12 +151,10 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
     $scope.lightsLoading = true;
 
     $scope.getLights = function () {
-        console.log("Get Lights Started")
-        console.log(hueGlobals.getLights())
-        if (hueGlobals.getLights() == undefined) {
+        if (hueGlobals.getLights() === undefined) {
             setTimeout(function () {
                 $scope.getLights();
-            }, 5000);
+            }, 1000);
         } else {
             $scope.lights = hueGlobals.getLights();
             $scope.lightsLoading = false;
@@ -163,22 +162,22 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
         }
     }
 
-    $scope.setLightState = function(deviceId,light){
+    $scope.setLightState = function (deviceId, light) {
         let apiCall = "http://" + hueGlobals.userObject.localIpAddress;
-        apiCall += "/api/" + hueGlobals.userObject.hueUsername + "/lights/"+ deviceId +"/state"; //Might need /api/ here, check the baseApiUrl
-        $http.put(apiCall,{"on":!light.state.on}).then(function(response){
+        apiCall += "/api/" + hueGlobals.userObject.hueUsername + "/lights/" + deviceId + "/state"; //Might need /api/ here, check the baseApiUrl
+        $http.put(apiCall, { "on": !light.state.on }).then(function (response) {
             //Let the user know the state change...or dont...
             console.log(response)
-            if(response.data[0].success){
+            if (response.data[0].success) {
                 light.state.on = response.data[0].success[Object.keys(response.data[0].success)[0]];
                 //$scope.$apply();
                 //Thing worked, swap teh class and change the function call to be opposite
-            }else{
+            } else {
                 //Something went wrong, alert user with the status response?
             }
         });
 
-        
+
     }
 
 
