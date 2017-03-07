@@ -8,9 +8,10 @@ h1 {
     font-family: 'Roboto', sans-serif;
 }
 
-.demo-card-square-light.mdl-card-light {
-    width: 320px;
-    height: 320px;
+.mdl-card-light {
+        padding-top: 3px;
+    width: 200px;
+
 }
 
 .demo-card-square-light > .mdl-card__title-light {
@@ -24,10 +25,10 @@ h1 {
 #mainPopup{
     
 }
-.demo-card-square.mdl-card {
+/*.demo-card-square.mdl-card {
   width: 320px;
   height: 320px;
-}
+}*/
 .demo-card-square > .mdl-card__title {
   color: #fff;
   background:
