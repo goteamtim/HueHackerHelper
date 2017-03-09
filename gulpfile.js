@@ -3,6 +3,13 @@ var jsmin = require('gulp-jsmin');
 var rename = require('gulp-rename');
 var del = require('del');
 var vinylPaths = require('vinyl-paths');
+const zip = require('gulp-zip');
+ 
+gulp.task('default', () =>
+    gulp.src('src/*')
+        .pipe(zip('archive.zip'))
+        .pipe(gulp.dest('dist'))
+);
  
 gulp.task('default', function () {
     

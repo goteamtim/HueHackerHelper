@@ -27,6 +27,7 @@
     "gulp": "^3.9.1",
     "gulp-jsmin": "^0.1.5",
     "gulp-rename": "^1.2.2",
+    "gulp-zip": "^4.0.0",
     "vinyl-paths": "^2.1.0"
   }
 }
