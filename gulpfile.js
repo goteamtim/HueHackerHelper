@@ -4,12 +4,7 @@ var rename = require('gulp-rename');
 var del = require('del');
 var vinylPaths = require('vinyl-paths');
 const zip = require('gulp-zip');
- 
-gulp.task('default', () =>
-    gulp.src('src/*')
-        .pipe(zip('archive.zip'))
-        .pipe(gulp.dest('dist'))
-);
+
  
 gulp.task('default', function () {
     
@@ -30,4 +25,8 @@ gulp.task('deploy', function(){
 
     gulp.src('manifest.json')
         .pipe(gulp.dest('dist'));
+
+    gulp.src('dist/*')
+        .pipe(zip('archive.zip'))
+        .pipe(gulp.dest('dist'))
 })
