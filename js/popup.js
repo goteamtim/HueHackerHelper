@@ -105,10 +105,18 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
     }
 
     $scope.getLights = function (userInfo) {
-        $.get(userInfo.baseApiUrl + "/lights", function (response) {
-            console.log(response);
+        $.ajax({
+            url: userInfo.baseApiUrl + "/lights", 
+            })
+        .done(function (response) {
+            debugger;
             hueGlobals.setLights(response);
         })
+        .error(function(err){
+            //Timeout can be handled here
+            
+            console.log(err);
+        });
     }
 
     $scope.setupButtonPressed = function () {
@@ -170,7 +178,6 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
             console.log(response)
             if (response.data[0].success) {
                 light.state.on = response.data[0].success[Object.keys(response.data[0].success)[0]];
-                //$scope.$apply();
                 //Thing worked, swap teh class and change the function call to be opposite
             } else {
                 //Something went wrong, alert user with the status response?
