@@ -106,7 +106,8 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
 
     $scope.getLights = function (userInfo) {
         $.ajax({
-            url: userInfo.baseApiUrl + "/lights", 
+            url: userInfo.baseApiUrl + "/lights",
+            timeout:300, 
             })
         .done(function (response) {
             debugger;
@@ -114,7 +115,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
         })
         .error(function(err){
             //Timeout can be handled here
-            
+            console.log("So.  you need to now figure out how to get the fact that you didnt get a response to the light controller and show the user.")
             console.log(err);
         });
     }
