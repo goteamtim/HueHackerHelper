@@ -2,17 +2,17 @@ var app = angular.module('hueHelper', []);
 
 app.service('hueGlobals', function () {
     let lights,
-        lightsSet = false,
+        lightsSet,
         userObject = {};
 
     return {
         getLights: function () {
             return userObject.lightingInfo || lights;
         },
-        setLights: function (value) {
+        setLights: function (value, lightsSetStatus) {
             lights = value;
             chrome.storage.local.set({ 'lightingInfo': value }, function () {/*Might need to get user lights here.*/ });
-            lightsSet = true;
+            lightsSet = lightsSetStatus;
         }
     };
 });
@@ -111,10 +111,11 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
             })
         .done(function (response) {
             debugger;
-            hueGlobals.setLights(response);
+            hueGlobals.setLights(response,true);
         })
         .error(function(err){
             //Timeout can be handled here
+            hueGlobals.setLights(response,"unknown");
             console.log("So.  you need to now figure out how to get the fact that you didnt get a response to the light controller and show the user.")
             console.log(err);
         });
@@ -165,9 +166,14 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
                 $scope.getLights();
             }, 1000);
         } else {
-            $scope.lights = hueGlobals.getLights();
+            if(hueGlobals.lightsSet === true){
+                $scope.lights = hueGlobals.getLights();
             $scope.lightsLoading = false;
             $scope.$apply();
+            }else if(hueGlobals.lightsSet === "unknown"){
+                //Probably cant reach the hue base.  Let user know here
+            }
+            
         }
     }
 
