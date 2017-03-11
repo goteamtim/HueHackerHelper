@@ -13,7 +13,8 @@ app.service('hueGlobals', function () {
             lights = value;
             chrome.storage.local.set({ 'lightingInfo': value }, function () {/*Might need to get user lights here.*/ });
             lightsSet = lightsSetStatus;
-        }
+        },
+        lightsSetStatus: function(){return lightsSet}
     };
 });
 
@@ -55,7 +56,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
                 hueGlobals.userObject = storedUserObject;
                 $scope.getLights(storedUserObject);
             }
-        })
+        });
 
     }
 
@@ -110,7 +111,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
             timeout:300, 
             })
         .done(function (response) {
-            debugger;
+            
             hueGlobals.setLights(response,true);
         })
         .error(function(err){
@@ -161,16 +162,17 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
     $scope.lightsLoading = true;
 
     $scope.getLights = function () {
-        if (hueGlobals.getLights() === undefined) {
+        if (hueGlobals.lightsSetStatus() == undefined) {
             setTimeout(function () {
                 $scope.getLights();
             }, 1000);
         } else {
-            if(hueGlobals.lightsSet === true){
+            console.log(hueGlobals.lightsSetStatus())
+            if(hueGlobals.lightsSetStatus() == true){
             $scope.lights = hueGlobals.getLights();
             $scope.lightsLoading = false;
             $scope.$apply();
-            }else if(hueGlobals.lightsSet === "unknown"){
+            }else if(hueGlobals.lightsSetStatus() == "unknown"){
                 //Probably cant reach the hue base.  Let user know here
                 $scope.lightsLoading = false;
             }
