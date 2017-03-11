@@ -1,19 +1,20 @@
 <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate" ng-show="lightsLoading"></div>
-<div  class="mdl-grid">
+<div class="mdl-grid">
     <!-- Square card -->
-    
-    <div class=" mdl-card-light mdl-shadow--2dp mdl-cell mdl-cell--3-col" ng-repeat="(lightId,light) in lights">
+
+    <div class=" mdl-card-light mdl-shadow--2dp mdl-cell mdl-cell--4-col" ng-repeat="(lightId,light) in lights">
         <div class="mdl-card__title-light mdl-card--expand {{light.modelid}}">
             <h2 class="mdl-card__title-text"></h2>
-            
+
         </div>
         <div class="mdl-card__supporting-text">
             {{light.name}}
         </div>
         <div class="mdl-card__actions mdl-card--border" ng-click="setLightState(lightId,light)">
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-      <div class="{{light.state.on}}">{{light.state.on}}</div>
-    </a>
+
+                <div class="{{light.state.on}}">{{light.state.on}}</div>
+            </a>
         </div>
     </div>
 </div>
