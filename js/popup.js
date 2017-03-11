@@ -167,11 +167,12 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
             }, 1000);
         } else {
             if(hueGlobals.lightsSet === true){
-                $scope.lights = hueGlobals.getLights();
+            $scope.lights = hueGlobals.getLights();
             $scope.lightsLoading = false;
             $scope.$apply();
             }else if(hueGlobals.lightsSet === "unknown"){
                 //Probably cant reach the hue base.  Let user know here
+                $scope.lightsLoading = false;
             }
             
         }
