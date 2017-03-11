@@ -1,7 +1,7 @@
 var app = angular.module('hueHelper', []);
 
 app.service('hueGlobals', function () {
-    let lights,
+    var lights,
         lightsSet,
         userObject = {};
 
@@ -14,7 +14,7 @@ app.service('hueGlobals', function () {
             chrome.storage.local.set({ 'lightingInfo': value }, function () {/*Might need to get user lights here.*/ });
             lightsSet = lightsSetStatus;
         },
-        lightsSetStatus: function(){return lightsSet}
+        lightsSetStatus: function(){return lightsSet;}
     };
 });
 
@@ -38,7 +38,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
             if ($.isEmptyObject(storedUserObject)) {
                 setupButton.disabled = false;
                 $.get(userObject.getInfoUrl, function (result) {
-                    document.getElementsByClassName('mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect')[0].addEventListener('click', setupButtonPressed)
+                    document.getElementsByClassName('mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect')[0].addEventListener('click', setupButtonPressed);
                     if (result.length == 0) {
                         hardwareStatus.innerHTML = "I can't seem to find a bridge.  Please enter the IP address below to setup.";
                         document.getElementById('ipAddressForm').hidden = false;
@@ -58,7 +58,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
             }
         });
 
-    }
+    };
 
     $scope.setupNewUser = function (ipAddress) {
         spinner.hidden = false;
@@ -75,7 +75,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
                 document.getElementById('hueUsername').addEventListener('click', $scope.copy);
             } else if (response[0].hasOwnProperty("error")) {
                 if (counter <= 8) {
-                    setTimeout(function () { setupNewUser(userObject.localIpAddress) }, 2000);
+                    setTimeout(function () { setupNewUser(userObject.localIpAddress); }, 2000);
                     counter++;
                 } else {
                     counter = 0;
@@ -97,13 +97,13 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
                 console.log("Status: " + status.status)
             });
 
-    }
+    };
 
     $scope.handleSetupResponse = function (response) {
         if (response.hasOwnProperty("success")) {
             return response;
         }
-    }
+    };
 
     $scope.getLights = function (userInfo) {
         $.ajax({
@@ -117,7 +117,6 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
         .error(function(err){
             //Timeout can be handled here
             hueGlobals.setLights(response,"unknown");
-            console.log("So.  you need to now figure out how to get the fact that you didnt get a response to the light controller and show the user.")
             console.log(err);
         });
     }
@@ -131,7 +130,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
         } else {
             setupNewUser(userObject.localIpAddress);
         }
-    }
+    };
 
     $scope.copy = function () {
 
@@ -143,7 +142,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
         document.execCommand("Copy", false, null);
         clearSelection();
 
-    }
+    };
 
     $scope.clearSelection = function () {
         if (document.selection) {
