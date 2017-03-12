@@ -190,6 +190,7 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
                 //Thing worked, swap teh class and change the function call to be opposite
             } else {
                 //Something went wrong, alert user with the status response?
+                alert("Oops we are having trouble connecting to" + light.name);
             }
         });
 
