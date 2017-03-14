@@ -77,15 +77,15 @@ var XORCipher = {
     input.focus();
     input.select();
     //$(this).hide();
-    alert("inputVal: " + input.value)
+    alert("inputVal: " + input.value);
   try {  
     var successful = document.execCommand('Copy');  
     var msg = successful ? 'successful' : 'unsuccessful';  
     // alert user with msg  successful
-    alert(msg)
+    alert(msg);
   } catch(err) {  
     //Let them know something went wrong 
-    alert(err)
+    alert(err);
   }
 
 
@@ -94,6 +94,6 @@ var XORCipher = {
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.action == "copy")
-    copyKey(request.value)
+    copyKey(request.value);
       sendResponse({farewell: "goodbye"});
   });
