@@ -16,13 +16,15 @@ app.service('hueGlobals', function () {
             lightsSet = lightsSetStatus;
         },
         lightsSetStatus: function(){return lightsSet;},
-        getErrorStatus: function(status){
-            if(typeof(status) === boolean){
+        setErrorStatus: function(status){
+            if(typeof(status) === "boolean"){
                 errorStatus = status;
+                //Need to send out an updatethat there is an update to errorStatus
             }else{
                 //Make a function for a temporary error message and pass it something
             }
-        }
+        },
+        getErrorStatus: function(){return errorStatus;}
     };
 });
 
@@ -126,7 +128,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
             
             //Timeout can be handled here
             if(err.statusText === "timeout"){
-                hueGlobals.errorStatus = true;
+                hueGlobals.setErrorStatus(true);
             }
         });
     };
