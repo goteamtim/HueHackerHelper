@@ -3,7 +3,8 @@ var app = angular.module('hueHelper', []);
 app.service('hueGlobals', function () {
     var lights,
         lightsSet,
-        userObject = {};
+        userObject = {},
+        errorStatus = false;
 
     return {
         getLights: function () {
@@ -14,7 +15,14 @@ app.service('hueGlobals', function () {
             chrome.storage.local.set({ 'lightingInfo': value }, function () {/*Might need to get user lights here.*/ });
             lightsSet = lightsSetStatus;
         },
-        lightsSetStatus: function(){return lightsSet;}
+        lightsSetStatus: function(){return lightsSet;},
+        getErrorStatus: function(status){
+            if(typeof(status) === boolean){
+                errorStatus = status;
+            }else{
+                //Make a function for a temporary error message and pass it something
+            }
+        }
     };
 });
 
@@ -71,7 +79,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
                 hardwareStatus.innerHTML = "Your API Key:<br><input id=\"hueUsername\" >" + response[0].success.username + "</input>";
                 spinner.hidden = true;
                 chrome.storage.local.set(userObject);
-                console.log(document.getElementById('hueUsername').text);
+                //console.log(document.getElementById('hueUsername').text);
                 document.getElementById('hueUsername').addEventListener('click', $scope.copy);
             } else if (response[0].hasOwnProperty("error")) {
                 if (counter <= 8) {
@@ -104,7 +112,7 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
             return response;
         }
     };
-
+    //This should be in the hueGlobals factory, its gross here
     $scope.getLights = function (userInfo) {
         $.ajax({
             url: userInfo.baseApiUrl + "/lights",
@@ -115,11 +123,13 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
             hueGlobals.setLights(response,true);
         })
         .error(function(err){
+            
             //Timeout can be handled here
-            hueGlobals.setLights(response,"unknown");
-            console.log(err);
+            if(err.statusText === "timeout"){
+                hueGlobals.errorStatus = true;
+            }
         });
-    }
+    };
 
     $scope.setupButtonPressed = function () {
         if (document.getElementById('ipInput').value != "") {
@@ -201,6 +211,11 @@ app.controller('lightsController', ['$scope', '$http', 'hueGlobals', function ($
     $scope.getLights();
 }]);
 
+
+app.controller('errorController', ['$scope', '$http', 'hueGlobals', function ($scope, $http, hueGlobals) {
+    $scope.error = hueGlobals.errorStatus;
+    //Could you set hueGlobals as a function and then $scope.$apply() to emit the fact that there was a status change?
+}]);
 
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-85118519-1']);
