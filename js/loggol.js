@@ -4,7 +4,7 @@ var log = (function(){
     //Public
     return {
         log: function(value){
-            console.log(value);
+            console.log("LOGGOL>>> " + value);
         },
         LoggingEnabled: function(loggingStatus){
             if(typeof(loggingStatus) != bool){
