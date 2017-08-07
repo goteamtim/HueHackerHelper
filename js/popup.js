@@ -44,7 +44,6 @@ app.controller('mainController', ['$scope', '$http', 'hueGlobals', function ($sc
 
     $scope.init = function () {
         //check for cookie
-        log.log("Logging worked!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         chrome.storage.local.get(function (storedUserObject) {
             if ($.isEmptyObject(storedUserObject)) {
                 setupButton.disabled = false;
